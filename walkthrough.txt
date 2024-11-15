@@ -1,10 +1,15 @@
 Pelissä pelaaja on lähdössä kotoa Hesarin approille. Pelaajan tulee juoda kolme annosta saadakseen tarvittavan määrän
-leimoja.
+leimoja. Passiin saa leimoja kävelemällä annettuihin ilmansuuntiin baaritiskille, ottamalla baarimikon tarjoaman juoman
+käskyllä ota {juoma}, esim. ota kalja ja juomalla sen käskyllä juo {juoma}, esim. juo kalja. Passin leimojen lukumäärän
+voi tarkistaa käskyllä passi.
 Baareissa on kuitenkin baarimikon lisäksi potentiaalisia kumppaneita, joista yksi on saatava kotiin, jotta pelin
 läpäisee. Jos on juonut liian vähän (0-1 annosta) ei potentiaalista kumppania uskalla vielä lähestyä. Kahden annoksen
 jälkeen tilanne on otollisin ja potentiaalinen kumppani lähtee mielellään pelaajan mukaan tekemään loppubaarikierroksen,
 ja sen jälkeen kotiin. Mikäli kolmannen annoksen jälkeen yrittää lähestyä potentiaalista kumppania, on pelaaja jo niin
-huppelissa, ettei potentiaalinen kumppani halua enää lähteä mukaan.
+huppelissa, ettei potentiaalinen kumppani halua enää lähteä mukaan. Potentiaalista kumppania voi yrittää saada mukaansa
+käskyllä pokaa. Sen, että onko jo onnistunut pokaamaan kumppanin voi tarkistaa käskyllä kumppani. Potentiaaliset
+kumppanit löytyvät 1., 2. ja 3. baarista.
+Baarien kierrosjärjestyksellä ei ole pelin kannalta väliä.
 Pelissä on lisäksi vielä neljäs baari, ja mikäli siellä päättää vielä juoda, ei kotiin enää osaakkaan ja peli päättyy.
 Pelin voittaa, kun on juonut kolme annosta, saanut toisen annoksen jälkeen kumppanin mukaan ja sitten vielä osannut
 kävellä takaisin kotiin. Pelin voi hävitä myös siten, että kävelee kotiin ennen kuin on juonut 3 juomaa tai saanut
