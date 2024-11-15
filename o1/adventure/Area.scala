@@ -41,6 +41,7 @@ class Area(var name: String, var description: String):
   def setNeighbors(exits: Vector[(String, Area)]) =
     this.neighbors ++= exits
     
+  /** Lisätty poistamismahdollisuus, jotta kotia voi muuttaa. */
   def deleteNeighbor(direction: String) =
     neighbors.remove(direction)
 

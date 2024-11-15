@@ -17,7 +17,7 @@ class Action(input: String):
   def execute(actor: Player): Option[String] =
     this.verb match
       case "passi"        => Some(actor.passi)
-      case "juomat"      => Some(actor.juomat)
+      case "juoma"      => Some(actor.juoma)
       case "kävele"     => Some(actor.kävele(modifiers))
       case "ota"      => Some(actor.ota(modifiers))
       case "juo"       => Some(actor.juo(modifiers))

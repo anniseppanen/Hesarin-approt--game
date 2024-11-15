@@ -15,25 +15,27 @@ class Player(startingArea: Area):
   private var quitCommandGiven = false              // one-way flag
   private val items = Map[String, Item]("passi" -> Item("passi", "0"))
   
-  /* Ottaa ylös tiedon siitä, mistä juoma on otettu. Baaritiskiltä ei voi lähteä, mikäli juomaa ei ole juotu. 
+  /** Ottaa ylös tiedon siitä, mistä juoma on otettu. Baaritiskiltä ei voi lähteä, mikäli juomaa ei ole juotu. 
   * Kun juoma on juotu, baari = None ja tiskiltä voi lähteä. */
   private var baari: Option[Area] = None       
   
   def has(itemName: String) = items.contains(itemName)
-
-  def passinLeimat = items("passi").description
-
+  
+  /** Tällä käskyllä pelaaja voi tarkistaa, montako leimaa passissa on ts. montako juomaa hän on juonut. Passi-käskyllä 
+    * selviää myös se, kuinka monta juomaa tarvitaan, että passi on täynnä. */
   def passi =
-      "Olet juonut " + items("passi").description + " juomaa."
+      "Passissa on " + items("passi").description + " leimaa.\nTarvitsen yhteensä kolme leimaa."
       
-  def juomat =
+  /** Tällä käskyllä pelaaja voi tarkistaa, minkä juoman hän on ottanut. */
+  def juoma =
     var juomingit = ""
     for nimi <- items.keys do 
       if nimi == "kalja" || nimi == "siideri" || nimi == "lonkero" || nimi == "shotti" then
-        juomingit += nimi + "\n"
+        juomingit += nimi
     if juomingit.isEmpty then "Ei juomia"
     else juomingit
 
+  /** Tällä käskyllä pelaaja liikkuu eri paikkoihin. Käsky on muotoa kävele {suunta} */
   def kävele(direction: String) =
     val destination = this.location.neighbor(direction)
     val suunta =
@@ -47,6 +49,7 @@ class Player(startingArea: Area):
     else if baari.isDefined then "Juoma pitää juoda ensin!"
     else s"Et voi mennä $suunta, siellä ei ole mitään kiinnostavaa."
 
+  /** Tällä käskyllä pelaaja ottaa juoman baarimikolta, mutta ei vielä juo sitä. */
   def ota(juoma: String) =
     val otettu = location.removeItem(juoma)
     for juominki <- otettu do 
@@ -57,6 +60,7 @@ class Player(startingArea: Area):
     else
       "En voi ottaa sitä."
       
+  /** Pelaajan täytyy juoda juoma baaritiskillä, jotta baarimikko voi antaa pelaajalle leiman appropassiin. */
   def juo(juoma: String) =
     val juotu = items.remove(juoma)
     if juotu.isDefined && baari.isDefined then
@@ -66,23 +70,25 @@ class Player(startingArea: Area):
     else
       "Ei pysty ei kykene."
   
+  /** Tätä metodia käytetään muissa metodeissa hyväksi. */
   private def onkoKumppani = items.contains("kumppani")
   
+  /** Tällä käskyllä pelaaja voi tarkistaa, onko hänellä jo kumppani. */
   def kumppani = if onkoKumppani then "Löytyy!" else "Ei vielä..."
   
-  /* Tällä käskyllä yritetään saada kumppani mukaan. Käytännössä tämä tarkoittaa, että se lisätään items-listaan, mikäli pokaus onnistuu.
+  /** Tällä käskyllä yritetään saada kumppani mukaan. Käytännössä tämä tarkoittaa, että se lisätään items-listaan, mikäli pokaus onnistuu.
   * Pokaus onnistuu, jos juotuja juomia on kaksi ja pelaajalla ei ole aikaisempaa kumppania. Jos juotuja juomia on yksi, ei itsevarmuus
-  * vielä riitä pokaamiseen. Jos juotuja juomia on kolme tai neljä, on liian huppelissa pokaamiseen. */
+  * vielä riitä pokaamiseen. Jos juotuja juomia on kolme tai neljä, on pelaaja liian huppelissa pokaamiseen. */
   def pokaa =
     val pokattu = location.removeItem("Potentiaalinen kumppani")
     if pokattu.isDefined then
-      if passinLeimat == "2" && !onkoKumppani then
+      if passi == "2" && !onkoKumppani then
         items.put("kumppani", Item("kumppani", ""))
         "Oisko mittää approhommii?\nPotentiaalinen kumppani: Tietenkin, oi ihanaa!"
-      else if passinLeimat == "1" || passinLeimat == "0" then
+      else if passi == "1" || passi == "0" then
         location.addItem(Item("Potentiaalinen kumppani", ""))
         "Itsevarmuus ei vielä riitä lähestymään potentiaalista kumppania... Täytyy juoda lisää."
-      else if (passinLeimat == "3" || passinLeimat == "4") && !onkoKumppani then
+      else if (passi == "3" || passi == "4") && !onkoKumppani then
         location.addItem(Item("Potentiaalinen kumppani", ""))
         "Lähtissshitkhö kentthies apprrhoilemaan ja sitten kothhiin kansshani?\nPotentiaalinen kumppani: En todellakaan noin huppelisen kanssa, phyi!"
       else
@@ -90,7 +96,6 @@ class Player(startingArea: Area):
         "Oisko mittää approhommii?\nPotentiaalinen kumppani: Sinulla on jo seuralainen, kauhea yritys!"
     else
       "Ei täällä ole ketään pokattavaa..."
-  
 
   def hasQuit = this.quitCommandGiven
 

@@ -14,7 +14,7 @@ class Adventure:
   val title = "Hesarin Approt"
   
   private val kotiAlussa = Area("Koti", "Aika lähteä approilemaan! Hesari näkyy idässä.")
-  private val hesari1 = Area("Hesari", "Hesarilla ollaan! Pohjoisessa näkyy Wanha Apteekki ja Hesari jatkuu itään.")
+  private val hesari1 = Area("Hesari", "Hesarilla ollaan! Pohjoisessa näkyy Wanha Apteekki, Hesari jatkuu itään ja lännessä on koti.")
   private val baari1 = Area("Wanha Apteekki", "Wanhassa Apteekissa ollaan! Pohjoisessa on baaritiski.")
   private val hesari2 = Area("Hesari", "Hesarilla ollaan! Etelässä näkyy Tenkka ja Hesari jatkuu itään ja länteen.")
   private val baari2 = Area("Tenkka", "Tenkassa ollaan! Eteleässä näkyy baaritiski.")
@@ -59,39 +59,28 @@ class Adventure:
   /** The maximum number of turns that this adventure game allows before time runs out. */
   val timeLimit = 30
 
-
   /** Determines if the adventure is complete, that is, if the player has won. */
-  def isComplete = this.player.location == kotiLopussa && player.has("kumppani") && player.passinLeimat == "3"
+  def isComplete = this.player.location == kotiLopussa && player.has("kumppani") && player.passi == "3"
   
-  def leimojaPuuttuu = player.passinLeimat != "3"
+  def leimojaPuuttuu = player.passi != "3"
   
   def kumppaniPuuttuu = !player.has("kumppani")
   
-  
-  private def vaihdaKoti(location: Area) = 
-    val baarit = Set(baari1, baari2, baari3, baari4)
-    val baaritiskit = Set(baaritiski1, baaritiski2, baaritiski3, baaritiski4)
-  
-    if location == kotiAlussa && leimojaPuuttuu && kumppaniPuuttuu then
-      println("leimoja ja kumppani puuttuu")
+  /** Tarkistaa jokaisella vuorolla, tarvitseeko kotia vaihtaa. Vaihto tapahtuu sen perusteella, onko pelaajalla tarpeeksi leimoja tai kumppania. */
+  private def vaihdaKoti() =
+    if leimojaPuuttuu && kumppaniPuuttuu then
       hesari1.setNeighbor("länsi", kotiTyhjinKäsin)
-      
-    if baarit.contains(location) && leimojaPuuttuu && !kumppaniPuuttuu then
-      println("leimoja puuttuu ja kumppani on")
+    else if leimojaPuuttuu && !kumppaniPuuttuu then
       hesari1.deleteNeighbor("länsi")
       hesari1.setNeighbor("länsi", kotiIlmanPassia)
-      
-    if baaritiskit.contains(location) && !leimojaPuuttuu && kumppaniPuuttuu then
-      println("leimoja on ja kumppani puuttuu")
+    else if !leimojaPuuttuu && kumppaniPuuttuu then
       hesari1.deleteNeighbor("länsi")
       hesari1.setNeighbor("länsi", kotiIlmanKumppania)
-    
-    if (baarit.contains(location) || baaritiskit.contains(location)) && !leimojaPuuttuu && !kumppaniPuuttuu then
-      println("kaikki ok")
+    else 
       hesari1.deleteNeighbor("länsi")
       hesari1.setNeighbor("länsi", kotiLopussa)
       
-  def liikaaLeimoja = player.passinLeimat == "4"
+  def liikaaLeimoja = player.passi == "4"
   
   /** Determines whether the player has won, lost, or quit, thereby ending the game. */
   def isOver = this.isComplete || this.player.hasQuit || this.turnCount == this.timeLimit || liikaaLeimoja ||
@@ -99,8 +88,8 @@ class Adventure:
 
   /** Returns a message that is to be displayed to the player at the beginning of the game. */
   def welcomeMessage = "Hesarin Approt ovat alkamassa. Tavoitteenasi on kiertää Hesarin baareja, kerätä appropassiin leimoja, " +
-    "löytää jostakin baarista mukaan kumppani ja palata lopuksi kotiin. Onnea matkaan!"
-
+    "löytää jostakin baarista mukaan kumppani ja palata lopuksi kotiin. Älä kuitenkaan juo liikaa! Voit lähteä Hesarille käskyllä " +
+    "kävele itä. Onnea matkaan!"
 
   /** Returns a message that is to be displayed to the player at the end of the game. The message
     * will be different depending on whether the player has completed their quest. */
@@ -111,15 +100,14 @@ class Adventure:
       "Et löytänyt kotiin!"
     else if liikaaLeimoja then
       "Joit liikaa... Heräät seuraavana aamuna putkasta..."
-    else  // game over due to player quitting
+    else
       "Hävisit pelin!"
 
-
-  /** Plays a turn by executing the given in-game command, such as “go west”. Returns a textual
+  /** Plays a turn by executing the given in-game command, such as “kävele itä”. Returns a textual
     * report of what happened, or an error message if the command was unknown. In the latter
     * case, no turns elapse. */
   def playTurn(command: String): String =
-    vaihdaKoti(player.location)
+    vaihdaKoti()
     val action = Action(command)
     val outcomeReport = action.execute(this.player)
     if outcomeReport.isDefined then
