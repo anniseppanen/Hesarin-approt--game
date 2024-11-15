@@ -1,10 +1,11 @@
-Pelissä pelaaja on lähdössä kotoa Hesarin approille. Pelaajan tulee juoda kolme annosta saadakseen tarvittavan määrän 
-leimoja. 
-Baareissa on kuitenkin baarimikon lisäksi potentiaalisia kumppaneita, joista yksi on saatava kotiin, jotta pelin 
-läpäisee. Jos on juonut liian vähän (1 annos) ei potentiaalista kumppania uskalla vielä lähestyä. Kahden annoksen 
+Pelissä pelaaja on lähdössä kotoa Hesarin approille. Pelaajan tulee juoda kolme annosta saadakseen tarvittavan määrän
+leimoja.
+Baareissa on kuitenkin baarimikon lisäksi potentiaalisia kumppaneita, joista yksi on saatava kotiin, jotta pelin
+läpäisee. Jos on juonut liian vähän (0-1 annosta) ei potentiaalista kumppania uskalla vielä lähestyä. Kahden annoksen
 jälkeen tilanne on otollisin ja potentiaalinen kumppani lähtee mielellään pelaajan mukaan tekemään loppubaarikierroksen,
-ja sen jälkeen kotiin. Mikäli kolmen annoksen jälkeen yrittää lähestyä potentiaalista kumppania, on pelaaja jo niin 
-huppelissa, ettei potentiaalinen kumppani halua enää lähteä mukaan. 
+ja sen jälkeen kotiin. Mikäli kolmannen annoksen jälkeen yrittää lähestyä potentiaalista kumppania, on pelaaja jo niin
+huppelissa, ettei potentiaalinen kumppani halua enää lähteä mukaan.
 Pelissä on lisäksi vielä neljäs baari, ja mikäli siellä päättää vielä juoda, ei kotiin enää osaakkaan ja peli päättyy.
 Pelin voittaa, kun on juonut kolme annosta, saanut toisen annoksen jälkeen kumppanin mukaan ja sitten vielä osannut
-kävellä takaisin kotiin.
+kävellä takaisin kotiin. Pelin voi hävitä myös siten, että kävelee kotiin ennen kuin on juonut 3 juomaa tai saanut
+kumppanin mukaan.

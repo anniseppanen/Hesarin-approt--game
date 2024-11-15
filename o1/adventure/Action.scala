@@ -16,6 +16,7 @@ class Action(input: String):
     * wrapper; if the command was not recognized, `None` is returned. */
   def execute(actor: Player): Option[String] =
     this.verb match
+      case "helppiä"  => Some(actor.helppiä)
       case "passi"        => Some(actor.passi)
       case "juoma"      => Some(actor.juoma)
       case "kävele"     => Some(actor.kävele(modifiers))

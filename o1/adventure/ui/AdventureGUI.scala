@@ -97,7 +97,7 @@ object AdventureGUI extends SimpleSwingApplication:
 
     def updateInfo(info: String) =
       if !this.game.isOver then
-        this.turnOutput.text = info + "\n\nKäskyt: kävele {suunta}, ota {juoma}, juo {juoma}, passi, juomat, pokaa, kumppani"
+        this.turnOutput.text = info
       else
         this.turnOutput.text = info + "\n\n" + this.game.goodbyeMessage
       this.locationInfo.text = this.player.location.fullDescription

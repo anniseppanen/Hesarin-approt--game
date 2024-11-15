@@ -19,6 +19,9 @@ class Player(startingArea: Area):
   * Kun juoma on juotu, baari = None ja tiskiltä voi lähteä. */
   private var baari: Option[Area] = None       
   
+  def helppiä =
+    "Käskyt: kävele {suunta}, ota {juoma}, juo {juoma}, passi, juomat, pokaa, kumppani"
+  
   def has(itemName: String) = items.contains(itemName)
   
   /** Tällä käskyllä pelaaja voi tarkistaa, montako leimaa passissa on ts. montako juomaa hän on juonut. Passi-käskyllä 

@@ -89,7 +89,7 @@ class Adventure:
   /** Returns a message that is to be displayed to the player at the beginning of the game. */
   def welcomeMessage = "Hesarin Approt ovat alkamassa. Tavoitteenasi on kiertää Hesarin baareja, kerätä appropassiin leimoja, " +
     "löytää jostakin baarista mukaan kumppani ja palata lopuksi kotiin. Älä kuitenkaan juo liikaa! Voit lähteä Hesarille käskyllä " +
-    "kävele itä. Onnea matkaan!"
+    "kävele itä, loput käskyt saat komennolla helppiä. Onnea matkaan!"
 
   /** Returns a message that is to be displayed to the player at the end of the game. The message
     * will be different depending on whether the player has completed their quest. */
